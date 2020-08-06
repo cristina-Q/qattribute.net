@@ -48,11 +48,13 @@ table {
 	border-spacing: 0;
 }
 
-.mockup-wrapper{
+
+
+
+.mockup-wrapper {
   position: relative;
   text-align: center;
 }
-
 
 .first-img-wrapper > img {
   position: absolute;
