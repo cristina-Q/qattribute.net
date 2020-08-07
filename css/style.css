@@ -67,15 +67,19 @@ body {
 }
 
 
-.aside {
-	width: 10%;
+.main-nav {
+	width: 250px;
 	height: 100vh;
 	margin: auto 0 auto auto;
 	background-color: #675f683f;
 	box-shadow: -15px 4px 29px 0px rgba(39, 35, 35, 0.75);
+	text-align: center;
 }
 
-
-
+.main-nav > a > img {
+display: block;
+width: 150px;
+height: auto;
+}
 
 
