@@ -7,29 +7,36 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
 
+<body>
   <aside class="sidebar">
     <nav class="main-nav">
-      <a href="/">
+      <button onclick="displayPanel()">
         <img src="media/nav-link1.jpg" alt="designs gallery link" title="designs gallery link">
         <h1>Tested Designs</h1>
-      </a>
-      <a href="/">
+      </button>
+      <button onclick="displayPanel()">
         <img src="media/nav-link3.png" alt="designs gallery link" title="designs gallery link">
         <h1>Work in Progress</h1>
-      </a>
-      <a href="/">
+      </button>
+      <button onclick="displayPanel()">
         <img src="media/nav-link2.png" alt="toolBox" title="toolBox">
         <h1>Toolbox</h1>
-      </a>
+      </button>
     </nav>
   </aside>
 
   <main class="content">
+    <div class="panel">
+    </div>
+    <div class="protected">
+      <a href="screen-scrool-protected.html">
+        <img src="./media/lock.png" alt="protected page">
+        <p>Protected page</p>
+      </a>
+    </div>
   </main>
 
-
+  <script src="./function.js"></script>
 </body>
 </html>
-
