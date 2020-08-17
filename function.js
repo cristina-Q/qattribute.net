@@ -1,7 +1,19 @@
-console.log("Hey");
+
+const olList = document.querySelector(".list");
+const addListbtn = document.querySelector(".addListbtn");
+const listInput = document.querySelector(".list-input");
 
 
 
-function displayPanel() {
-document.getElementsByClassName("panel").style.opacity = "1";
-}
+
+addListbtn.addEventListener ("click", function() {
+
+  const newLi = document.createElement("li");
+
+  const liContent = document.createTextNode(listInput.value);
+
+  newLi.appendChild(liContent);
+
+  olList.append(newLi);
+});
+
