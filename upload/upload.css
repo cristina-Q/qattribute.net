@@ -1,0 +1,102 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: gray;
+  height: 1000px;
+  font-family: 'Lato','Roboto', Arial, Tahoma, sans-serif;
+}
+
+main {
+  height: 950px;
+}
+
+
+.header {
+  height: 250px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+hgroup{
+  margin-bottom: 20px;
+}
+
+.upform1 {
+  width: 100%;
+  padding: 5px;
+  background-color: #0b79b8;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+.sect-svg {
+  margin: 0;
+  height: 650px;
+}
+
+.div-svg {
+  padding: 0px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+}
+
+footer {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #111;
+  text-align: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+footer p {
+  letter-spacing: 1px;
+  padding: 5px;
+  color: antiquewhite;
+  font-family: "Tahoma";
+
+}
+
+
+input[type="submit"] {
+  background-color: #111;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight:500;
+  letter-spacing: 1px;
+  border: none;
+  padding: 9px 20px;
+  font-family: "Tahoma";
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+  background: #d32e36;
+}
+
+input[type="file"] {
+  font-size: 15px;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+#Vector_8:hover {
+  cursor: grab;
+  fill: red;
+
+}
+

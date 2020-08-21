@@ -93,12 +93,6 @@ button:focus {
 	box-shadow: -15px 4px 29px 0px rgba(39, 35, 35, 0.75);
 }
 
-.content {
-	display: inline-block;
-	width: 80%;
-	height: 100vh;
-}
-
 .main-nav {
 	margin: auto;
 	display: flex;
@@ -127,18 +121,20 @@ button:focus {
 	text-shadow: -2px -2px 2px rgb(24, 22, 22);
 }
 
-.panel{
-	margin: 50px auto;
+.container {
+	max-width: 900px;
+	height: 100vh;
+}
+
+.panel {
 	display: flex;
-	justify-content: space-around;
-	width: 70%;
-	/* background-color: rgba(255, 255, 255, 0.342); */
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .img-wrapper {
 	padding: 10%;
-	/* max-width: 250px;
-	height: auto; */
+	width: 300px;
 }
 
 .img-wrapper img {
@@ -147,23 +143,6 @@ button:focus {
 	box-shadow: -12px -4px 22px 0px rgba(0, 0, 0, 0.75);
 }
 
-.protected {
-	width: 100px;
-	height: auto;
-	margin: auto auto 0 30px;
-}
-
-.protected img {
-	max-height: 100%;
-	max-width: 100%;
-	padding: 15%;
-}
-
-.protected p {
-	text-align: center;
-	color: rgb(255, 255, 255);
-	text-shadow: -2px -2px 2px rgb(24, 22, 22);
-}
 
 
 
