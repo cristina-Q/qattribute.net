@@ -14,7 +14,7 @@ html, body {
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  box-shadow: 0 1rem 1.2rem rgba(0, 0, 0, 1);
+  box-shadow: 0 1rem 1.2rem rgba(0, 0, 0, 0.514);
   z-index:1;
 }
 
@@ -28,7 +28,7 @@ html, body {
 
 .nav-link.active,
 .nav-link:hover {
-  color: #396afc!important;
+  color: #3ab6a1!important;
 }
 
 /*============= CAROUSEL =============*/
@@ -36,9 +36,13 @@ html, body {
   box-shadow: 0 1rem 1.2rem rgba(0, 0, 0, .2);
 }
 
-.carousel-inner {
-  height: 50vh;
+.bg-indicators {
+  background-color: rgba(0, 0, 0, 0.541)
 }
+
+/* .carousel-inner {
+  height: 100vh;
+} */
 
 /*---Change Carousel Transition Speed --*/
 .carousel-item-next,
@@ -53,7 +57,6 @@ p.lead {
   font-size: 1.4rem;
 }
 
-
 /*===== FIXED BACKGROUND IMG =====*/
 
 .fixed-background {
@@ -61,7 +64,7 @@ p.lead {
   height: 100vh;
 }
 .fixed {
-  /* background-image: url('../'); */
+  background-image: url('../img/ball.jpg');
   position: fixed;
 }
 
@@ -76,7 +79,7 @@ footer {
 
 .socket {
   background-color: #222;
-  border-top: 1.2rem;
+  border-top: .1rem solid gray;
 }
 
 /*============= MEDIA QUERIES =============*/
@@ -164,9 +167,9 @@ Extra (xl) large devices (large desktops, 1200px and up)
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-size: cover;
-  background-position: center center;
+  background-size: cover;
+  background-position: bottom center;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  will-change: transform; */
+  will-change: transform;
 }
