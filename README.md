@@ -1,4 +1,14 @@
+<h1> testing things </h1>
 
-  [qattribute.netlify.app](https://qattribute.netlify.app)
-## testing things </h2>
-  ![](media/nav-link3.png)
+<a
+href="https://qattribute.netlify.app"
+target="\_blank"
+rel="noopener noreferrer"
+
+> Live link: https://qattribute.netlify.app
+
+<img
+src="media/nav-link3.png"
+alt="testing things"
+
+> </a>
