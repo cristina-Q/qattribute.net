@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta
+    name='viewport'
+    content='width=device-width, initial-scale=1.0'
+  >
+  <link
+    rel='shortcut icon'
+    href='favicon.ico'
+    type='image/x-icon'
+  >
+
+  <link
+    href='https://fonts.googleapis.com/css?family=Lato:100,300,600'
+    rel='stylesheet'
+    type='text/css'
+  >
+  <link
+    href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
+    rel='stylesheet'
+    type='text/css'
+  >
+  <link
+    type='text/css'
+    rel='stylesheet'
+    href='style.css'
+  >
+
+
+  <title>Pig Game</title>
+</head>
+
+<body>
+  <main class='wrapper'>
+    <section class='top-wrapper'>
+      <button
+        class='btn-rules'
+        id='game-rules'
+      >
+        <i class='ion-ios-book-outline'></i>
+        Game Rules
+      </button>
+
+      <button class='btn-new'>
+        <i class='ion-ios-plus-outline'></i>
+        New game
+      </button>
+
+      <button
+        class='btn-github'
+        id='btn-github'
+      >
+        <i class='ion-ios-eye'></i>View code
+        </a>
+      </button>
+    </section>
+
+
+    <section class='player-wrapper'>
+      <div class='player-0-panel active'>
+        <div
+          class='player-name'
+          id='name-0'
+        >Player 1
+        </div>
+        <div
+          class='player-score'
+          id='score-0'
+        >43
+        </div>
+
+        <div class='player-current-box'>
+          <div class='player-current-label'>Current
+          </div>
+
+          <div
+            class='player-current-score'
+            id='current-0'
+          >11
+          </div>
+        </div>
+      </div>
+
+      <div class='player-1-panel'>
+        <div
+          class='player-name'
+          id='name-1'
+        >Player 2
+        </div>
+
+        <div
+          class='player-score'
+          id='score-1'
+        >72
+        </div>
+
+        <div class='player-current-box'>
+          <div class='player-current-label'>Current</div>
+          <div
+            class='player-current-score'
+            id='current-1'
+          >0
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class='dice-wrapper'>
+      <img
+        src='dice-5.png'
+        alt='Dice'
+        class='dice'
+      >
+
+      <button class='btn-roll'>
+        <i class='ion-ios-loop'></i>
+        Roll dice
+      </button>
+    </section>
+
+    <section class='hold'>
+      <button class='btn-hold'>
+        <i class='ion-ios-download-outline'></i>
+        Hold
+      </button>
+    </section>
+    </section>
+  </main>
+
+
+
+  <div
+    class='modal'
+    id='modal-rules'
+  >
+    <a
+      href='#'
+      title='Close'
+      class='modal-close'
+      id='modal-rules-close'
+    >Close
+    </a>
+
+    <p class='modal-rules-content'>
+      👦 👩 The game has 2 players, playing in rounds.<br>
+      In each turn, a player rolls 🎲 as many times as he whishes. <br>
+      Each result get added to his ROUND score. <br>
+      BUT, if the player rolls a 1, all his ROUND score gets lost. 🤣 <br>
+      After that, it's the next player's turn. <br>
+      The player can choose to 'Hold' ✋🏻, which means that his ROUND score gets added to his GLOBAL score. <br>
+      After that, it's the next player's turn. <br>
+      The first player to reach 100 points 💯 on GLOBAL score wins the game
+    </p>
+  </div>
+
+
+  <div
+    class='modal'
+    id='modal-code'
+  >
+    <a
+      href='#'
+      title='Close'
+      class='modal-close'
+      id='modal-code-close-top'
+    >Close
+    </a>
+
+    <pre class="modal-code-content">
+
+      ================ JavaScript ==========================================
+      🎠 Game logic & ⚙ Functionality
+      ======================================================================
+
+      let scores, roundScore, activePlayer, gamePlaying;
+      init();
+
+      document.querySelector('.btn-roll').addEventListener('click', function () {
+        if (gamePlaying) {
+          // 1. Random number
+          let dice = Math.floor(Math.random() * 6) + 1;
+
+          // 2.Display the result
+          let diceDOM = document.querySelector('.dice');
+          diceDOM.style.display = 'block';
+          diceDOM.src = 'dice-' + dice + '.png';
+
+          // 3.Update the round score IF the rolled no was NOT a 1
+          if (dice !== 1) {
+            //Add score
+            roundScore += dice;
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+          } else {
+            //Next player
+            nextPlayer();
+          }
+        }
+      });
+
+      document.querySelector('.btn-hold').addEventListener('click', function () {
+        if (gamePlaying) {
+          //Add CURRENT score to GLOBAL score
+          scores[activePlayer] += roundScore;
+
+          // Update the UI
+          document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+          // Check if player won the game
+          if (scores[activePlayer] >= 100) {
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+            gamePlaying = false;
+          } else {
+            //Next Player
+            nextPlayer();
+          }
+        }
+      });
+
+      function nextPlayer() {
+        //Next player
+        activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+        roundScore = 0;
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+
+        //document.querySelector('.player-0-panel').classList.remove('active');
+        //document.querySelector('.player-1-panel').classList.add('active');
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
+        // document.querySelector('.dice').style.display = 'none';
+      }
+
+      document.querySelector('.btn-new').addEventListener('click', init);
+
+      function init() {
+        scores = [0, 0];
+        roundScore = 0;
+        activePlayer = 0;
+        gamePlaying = true;
+
+        document.querySelector('.dice').style.display = 'none';
+
+        document.getElementById('score-0').textContent = '0';
+        document.getElementById('score-1').textContent = '0';
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('name-0').textContent = 'Player1';
+        document.getElementById('name-1').textContent = 'Player2';
+        document.querySelector('.player-0-panel').classList.remove('winner');
+        document.querySelector('.player-1-panel').classList.remove('winner');
+        document.querySelector('.player-0-panel').classList.remove('active');
+        document.querySelector('.player-1-panel').classList.remove('active');
+        document.querySelector('.player-0-panel').classList.add('active');
+      }
+
+      document.getElementById('game-rules').addEventListener('click', () => {
+        document.getElementById('modal1').style.display = 'block';
+      });
+
+      document.getElementById('modal-close').addEventListener('click', () => {
+        document.getElementById('modal1').style.display = 'none';
+      });
+
+      document.getElementById('btn-github').addEventListener('click', () => {
+        document.getElementById('modal2').style.display = 'block';
+      });
+
+      document.getElementById('modal2-close').addEventListener('click', () => {
+        document.getElementById('modal2').style.display = 'none';
+      });
+
+
+
+
+      ================ CSS =================================================
+      🎀 Style
+      ======================================================================
+
+
+      //********************************* RESET
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        color: #555;
+        background: none;
+        border: none;
+        font-family: Lato;
+        font-size: 20px;
+        text-transform: uppercase;
+        cursor: pointer;
+        font-weight: 300;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      i {
+        color: #b94deb;
+        display: inline-block;
+        margin-right: 1rem;
+        font-size: 2.2rem;
+        line-height: 1;
+        vertical-align: text-top;
+        margin-top: -4px;
+        transition: margin 0.3s;
+      }
+
+      .btn-github > i {
+        font-size: 3rem;
+        margin-top: -8px;
+      }
+
+      button:hover {
+        font-weight: 600;
+      }
+      button:hover i {
+        margin-right: 20px;
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+
+      //********************************* GENERAL
+
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url(backg.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: Lato;
+        font-weight: 300;
+        height: 100vh;
+        color: #555;
+      }
+
+      @media (max-width: 403px) {
+        body {
+          height: auto;
+        }
+      }
+
+      .wrapper {
+        width: 100%;
+        max-width: 1000px;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #fff;
+        box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.596);
+      }
+
+      .top-wrapper {
+        padding: 4%;
+        flex: 0 0 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      //********************************* TOP PANEL BUTTONS
+      .btn-new {
+        white-space: nowrap;
+      }
+
+      @media (max-width: 576px) {
+        .btn-github {
+          font-size: 0;
+        }
+        .btn-rules {
+          font-size: 0;
+        }
+      }
+
+
+      //********************************* PLAYERS
+      .player-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 100%;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .player-0-panel,
+      .player-1-panel {
+        flex: 0 0 50%;
+        margin-bottom: 30px;
+      }
+
+      .dice-wrapper {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .dice {
+        margin-right: 40px;
+        height: 6rem;
+        box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
+      }
+
+      .player-name {
+        white-space: nowrap;
+        font-size: 40px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 100;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        position: relative;
+      }
+
+      .player-score {
+        text-align: center;
+        font-size: 5rem;
+        font-weight: 100;
+        color: #b63dee;
+        text-shadow: 0 0 3px #ff0000;
+      }
+
+      .active {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(182, 61, 238, 0.4) 45%);
+        background-image: url(pig-game.png);
+        background-position: center;
+        background-size: 250px;
+        background-repeat: no-repeat;
+      }
+      .active .player-name {
+        font-weight: 300;
+      }
+
+      .active .player-name::after {
+        content: '\2022';
+        color: rgb(149, 5, 206);
+      }
+
+
+      //********************************* SECTION CURRENT SCORE
+      .player-current-box {
+        margin-top: 30px;
+        background-color: #b63dee;
+        color: #fff;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .player-current-label {
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #222;
+      }
+
+      .player-current-score {
+        font-size: 30px;
+      }
+
+      .hold {
+        flex: 0 0 100%;
+        display: flex;
+        padding: 50px;
+        justify-content: center;
+      }
+
+      //********************************* WINNER
+      .winner {
+        background-color: rgba(204, 204, 204, 0.507);
+      }
+      .winner .player-name {
+        font-weight: 300;
+        text-shadow: 2px 2px 3px rgba(178, 44, 211, 1);
+      }
+
+      //********************************* MODAL
+      .modal {
+        display: none;
+        position: fixed;
+        max-width: 100%;
+        max-height: 100%;
+        overflow: scroll;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+        word-wrap: break-word;
+      }
+
+      .modal-code-content {
+        white-space: pre-wrap;
+        margin-left: 10px;
+        font-family: 'Courier New', Courier, monospace;
+      }
+
+      .modal-rules-content {
+        text-align: center;
+        line-height: 2.5;
+        font-size: 20px;
+      }
+
+      .modal-close {
+        color: rgb(43, 39, 39);
+        font-weight: 900;
+        font-size: 25px;
+        width: 70px;
+        text-decoration: none;
+        padding: 5px;
+        margin: 7px auto auto 7px;
+        background-color: #b66cd8;
+      }
+
+      .modal-close:hover {
+        color: black;
+      }
+
+
+      ================ HTML ================================================
+      🧱 Structure
+      ======================================================================
+
+      &lt;!DOCTYPE html&gt;
+      &lt;html lang='en'&gt;
+
+      &lt;head&gt;
+        &lt;meta charset='UTF-8'&gt;
+        &lt;meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0'
+        &gt;
+        &lt;link
+          rel='shortcut icon'
+          href='favicon.ico'
+          type='image/x-icon'
+        &gt;
+
+        &lt;link
+          href='https://fonts.googleapis.com/css?family=Lato:100,300,600'
+          rel='stylesheet'
+          type='text/css'
+        &gt;
+        &lt;link
+          href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
+          rel='stylesheet'
+          type='text/css'
+        &gt;
+        &lt;link
+          type='text/css'
+          rel='stylesheet'
+          href='style.css'
+        &gt;
+
+
+        &lt;title&gt;Pig Game&lt;/title&gt;
+      &lt;/head&gt;
+
+      &lt;body&gt;
+        &lt;main class='wrapper'&gt;
+          &lt;section class='top-wrapper'&gt;
+            &lt;button
+              class='btn-rules'
+              id='game-rules'
+            &gt;
+              &lt;i class='ion-ios-book-outline'&gt;&lt;/i&gt;
+              Game Rules
+            &lt;/button&gt;
+
+            &lt;button class='btn-new'&gt;
+              &lt;i class='ion-ios-plus-outline'&gt;&lt;/i&gt;
+              New game
+            &lt;/button&gt;
+
+            &lt;button
+              class='btn-github'
+              id='btn-github'
+            &gt;
+              &lt;i class='ion-ios-eye'&gt;&lt;/i&gt;View code
+              &lt;/a&gt;
+            &lt;/button&gt;
+          &lt;/section&gt;
+
+
+          &lt;section class='player-wrapper'&gt;
+            &lt;div class='player-0-panel active'&gt;
+              &lt;div
+                class='player-name'
+                id='name-0'
+              &gt;Player 1
+              &lt;/div&gt;
+              &lt;div
+                class='player-score'
+                id='score-0'
+              &gt;43
+              &lt;/div&gt;
+
+              &lt;div class='player-current-box'&gt;
+                &lt;div class='player-current-label'&gt;Current
+                &lt;/div&gt;
+
+                &lt;div
+                  class='player-current-score'
+                  id='current-0'
+                &gt;11
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class='player-1-panel'&gt;
+              &lt;div
+                class='player-name'
+                id='name-1'
+              &gt;Player 2
+              &lt;/div&gt;
+
+              &lt;div
+                class='player-score'
+                id='score-1'
+              &gt;72
+              &lt;/div&gt;
+
+              &lt;div class='player-current-box'&gt;
+                &lt;div class='player-current-label'&gt;Current&lt;/div&gt;
+                &lt;div
+                  class='player-current-score'
+                  id='current-1'
+                &gt;0
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/section&gt;
+
+          &lt;section class='dice-wrapper'&gt;
+            &lt;img
+              src='dice-5.png'
+              alt='Dice'
+              class='dice'
+            &gt;
+
+            &lt;button class='btn-roll'&gt;
+              &lt;i class='ion-ios-loop'&gt;&lt;/i&gt;
+              Roll dice
+            &lt;/button&gt;
+          &lt;/section&gt;
+
+          &lt;section class='hold'&gt;
+            &lt;button class='btn-hold'&gt;
+              &lt;i class='ion-ios-download-outline'&gt;&lt;/i&gt;
+              Hold
+            &lt;/button&gt;
+          &lt;/section&gt;
+
+          &lt;/section&gt;
+        &lt;/main&gt;
+
+
+
+        &lt;div
+          class='modal'
+          id='modal-rules'
+        &gt;
+          &lt;a
+            href='#'
+            title='Close'
+            class='modal-close'
+            id='modal-rules-close'
+          &gt;Close&lt;/a&gt;
+          &lt;p class='modal-rules-content'&gt;
+            👦 👩 The game has 2 players, playing in rounds.&lt;br&gt;
+            In each turn, a player rolls 🎲 as many times as he whishes. &lt;br&gt;
+            Each result get added to his ROUND score. &lt;br&gt;
+            BUT, if the player rolls a 1, all his ROUND score gets lost. 🤣 &lt;br&gt;
+            After that, it's the next player's turn. &lt;br&gt;
+            The player can choose to 'Hold' ✋🏻, which means that his ROUND score gets added to his GLOBAL score. &lt;br&gt;
+            After that, it's the next player's turn. &lt;br&gt;
+            The first player to reach 100 points 💯 on GLOBAL score wins the game
+          &lt;/p&gt;
+        &lt;/div&gt;
+
+
+        &lt;div
+          class='modal'
+          id='modal-code'
+        &gt;
+          &lt;a
+            href='#'
+            title='Close'
+            class='modal-close'
+            id='modal-code-close'
+          &gt;Close&lt;/a&gt;
+          &lt;pre class="modal-code-content"&gt;
+      &lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;script src='app.js'&gt;&lt;/script&gt;
+      &lt;/body&gt;
+
+      &lt;/html&gt;
+    </pre>
+
+    <a
+      href='#'
+      title='Close'
+      class='modal-close close-bottom'
+      id='modal-code-close-bottom'
+    >Close
+    </a>
+  </div>
+
+  <script src='app.js'></script>
+</body>
+
+</html>
