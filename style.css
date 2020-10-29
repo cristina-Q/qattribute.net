@@ -137,7 +137,7 @@ body {
 
 @media screen and (min-width: 1170px) {
   body {
-    background: url('../media/garage.jpg') no-repeat center center;
+    background: url('../media/pier.jpg') no-repeat center center;
     background-size: cover;
   }
 }
